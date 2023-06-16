@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const productsSchema = Schema({
+const productosSchema = Schema({
     nombre: {
         type: String,
         required: [true, 'El nombre del producto es obligatorio']
@@ -20,4 +20,4 @@ const productsSchema = Schema({
     }
 }, { versionkey: false });
 
-module.exports = model('products', productsSchema); //products es el nombre de la colleccion
+module.exports = model('productos', productosSchema); //products es el nombre de la colleccion
