@@ -1,0 +1,23 @@
+const {Schema, model} = require('mongoose');
+
+
+const usuariosSchema = Schema({
+    nombre: {
+        type: String,
+        required: [true, 'El nombre es obligatorio']
+    },
+    email: {
+        type: String,
+        required: [true, 'El email es obligatorio']
+    },
+    dob: {
+        type:Date,
+        required: [true, 'Fecha de nacimiento es obligatorio']
+    },
+    password: {
+        type: String,
+        required: [true, 'El password es obligatorio']
+    }
+}, {versionKey: false} );
+
+module.exports = model('usuarios', usuariosSchema);
