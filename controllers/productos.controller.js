@@ -3,8 +3,16 @@ const Producto = require('../models/producto.model');
 
 //Aquí se tienen que definir req y res porque estamos importándolo desde express
 const productosGet = async (req = request, res = response) => {
+    let productosLista = [];
+    const { id } = req.query;
+
     try {
-        const productosLista = await Producto.find();
+
+        if (id) {
+            productosLista = await Producto.findById(id);
+        } else {
+            productosLista = await Producto.find();
+        }
 
         res.status(200).json({
             msg: "Listado de productos",
@@ -40,31 +48,35 @@ const productosPost = async (req = request, res = response) => {
 
 const productosPut = async (req = request, res = response) => {
     try {
+
         const { id } = req.params;
         const body = req.body;
-        const actualizarProducto = await Producto.findByIdAndUpdate(id, body);
+        const productToUpdate = await Producto.findByIdAndUpdate(id, body);
 
         res.status(200).json({
-            msg: "El producto se actualizó",
-            detalle: actualizarProducto
+            msg: "El producto se actualizo correctamente",
+            detalle: productToUpdate
         });
+
     } catch (error) {
         res.status(400).json({
-            msg: "Error al actualizar el producto",
-            detalle: error.mesasage
+            msg: "No se pudo editar el producto",
+            detalle: error.message
         });
     }
 }
 
 const productosDelete = async (req = request, res = response) => {
     try {
+
         const { id } = req.params;
         await Producto.findByIdAndDelete(id);
 
         res.status(200).json({
-            msg: "El producto se eliminó",
+            msg: "El producto se elimino correctamente",
             detalle: null
         });
+
     } catch (error) {
         res.status(400).json({
             msg: "No se pudo eliminar el producto",
@@ -72,6 +84,7 @@ const productosDelete = async (req = request, res = response) => {
         });
     }
 }
+
 
 const productosPremium = async (req = request, res = response) => {
     res.status(200).json({
